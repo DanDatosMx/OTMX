@@ -1,0 +1,111 @@
+# %%
+#Importar librerías 
+
+import pandas as pd
+import os
+from pathlib import Path
+
+
+PathC = "C:/OTMX"
+NameItem = "2024-100"
+
+# %%
+xlsx_dir = Path(PathC) / "Inputs"
+
+# Define & create output directory
+output_dir = Path(PathC) / "Outputs" / NameItem
+output_dir.mkdir(parents=True, exist_ok=True)
+
+
+# %%
+File = "DATA_FORD_01.xlsx"
+
+PathFile = xlsx_dir / File
+df = pd.read_excel(PathFile)
+df.columns
+
+
+# %%
+# Eliminar los espacios en blanco de la columna "DISTRIBUIDOR"
+#df['AGENCIA'] = df['AGENCIA'].str.strip()
+
+df['SERIE'] = df['SERIE'].str.replace(' ', '')
+
+# Obtener los valores únicos de la columna "DISTRIBUIDOR"
+valores_unicos = df['AGENCIA'].unique()
+
+
+# %%
+# Crear un archivo separado para cada valor único de "DISTRIBUIDOR"
+for valor in valores_unicos:
+
+    # Filtrar el DataFrame original por el valor único de "DISTRIBUIDOR"
+    df_filtrado = df[df['AGENCIA'] == valor]
+
+    #Suma decuento
+    # Filtrar los registros que tengan "DESCUENTO" en la columna "ESTATUS"
+    descuento_registros = df_filtrado[df_filtrado['SERIE'] == 'DESCUENTOANTICIPO']
+    # Agrupar por la columna "ESTATUS" y calcular la suma de la columna "CANTIDAD"
+    tabla_descuento = descuento_registros.groupby('SERIE')['UDI C/ IVA'].sum().reset_index()
+
+
+    # Filtrar los registros que tengan "DESCUENTO" en la columna "ESTATUS"
+    registros = df_filtrado[df_filtrado['SERIE'] != 'DESCUENTOANTICIPO']
+    # Agrupar por la columna "ESTATUS" y calcular la suma de la columna "CANTIDAD"
+    tabla_registro = registros.groupby('SERIE')['UDI C/ IVA'].sum().reset_index()
+
+
+
+
+
+
+
+    #df_desc = df[df['SERIE'] == 'DESCUENTOANTICIPO']
+    #suma_desc  = df_desc['UDI C/ IVA'].sum()
+
+    df_filtrado = df_filtrado[df_filtrado['SERIE'] != 'DESCUENTOANTICIPO']
+
+
+    # Agregar la columna "MONTO" al DataFrame filtrado
+    df_filtrado['UDI C/ IVA'] = df['UDI C/ IVA']    # Reemplaza esto con tus propios valores de monto
+    # Calcular la suma de la columna "MONTO"
+    suma_monto = registros['UDI C/ IVA'].sum()
+    suma_desc = tabla_descuento['UDI C/ IVA'].sum()
+
+    #Totale
+    total = suma_monto - suma_desc
+
+
+    # Dar formato de número a la suma del MONTO
+    suma_monto_formatted = '{:,.2f}'.format(suma_monto)
+    desc_monto_formatted = '{:,.2f}'.format(suma_desc)
+    monto_formatted = '{:,.2f}'.format(total)
+
+
+
+     # Agregar la suma del MONTO al final del DataFrame
+    df_filtrado.loc[df_filtrado.shape[1], 'UDI NETO'] = 'TOTAL UDI/IVA'
+    df_filtrado.loc[df_filtrado.shape[1], 'UDI C/ IVA'] = suma_monto_formatted
+
+
+    df_filtrado.loc[df_filtrado.shape[1]+1, 'UDI NETO'] = 'DESCUENTO ANTICIPO'
+    df_filtrado.loc[df_filtrado.shape[1]+1, 'UDI C/ IVA'] = desc_monto_formatted
+
+    df_filtrado.loc[df_filtrado.shape[1]+2, 'UDI NETO'] = 'TOTAL A FACTURAR'
+    df_filtrado.loc[df_filtrado.shape[1]+2, 'UDI C/ IVA'] = monto_formatted
+
+
+
+
+
+    # Guardar el DataFrame filtrado con la columna "MONTO" agregada en un nuevo archivo
+    nombre_archivo = f'{valor}.xlsx'  # Puedes cambiar el formato del nombre del archivo si lo deseas
+    df_filtrado.to_excel(output_dir / nombre_archivo, index=False)
+    
+
+print("Archivos separados y generados exitosamente.")
+
+# %%
+#tabla_resumen.columns
+
+
