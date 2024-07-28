@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encabezado con nombre de la compañía</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        
+        header {
+            background-color: black;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateX(-100%);
+            animation: moveTitle 5s linear infinite;
+        }
+        
+        @keyframes moveTitle {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MARSH</h1>
+    </header>
+    
+    <!-- Aquí puedes agregar el contenido de tu página -->
+    
+</body>
+</html>
