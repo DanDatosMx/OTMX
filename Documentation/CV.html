@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mi CV</title>
+  <script>
+    function cambiarIdioma() {
+      var idioma = document.getElementById("idioma").value;
+      
+      if (idioma === "es") {
+        document.getElementById("nombre").innerHTML = "Nombre: Oscar Téllez";
+        document.getElementById("titulo").innerHTML = "Título: Analista de Datos";
+        document.getElementById("experiencia").innerHTML = "Experiencia: 5 años en análisis de datos";
+        document.getElementById("educacion").innerHTML = "Educación: Licenciatura en Ciencias de la Computación";
+        document.getElementById("habilidades").innerHTML = "Habilidades: Python, SQL, Tableau";
+        document.getElementById("boton").value = "Cambiar a Inglés";
+      } else if (idioma === "en") {
+        document.getElementById("nombre").innerHTML = "Name: Oscar Téllez";
+        document.getElementById("titulo").innerHTML = "Title: Data Analyst";
+        document.getElementById("experiencia").innerHTML = "Experience: 5 years in data analysis";
+        document.getElementById("educacion").innerHTML = "Education: Bachelor's degree in Computer Science";
+        document.getElementById("habilidades").innerHTML = "Skills: Python, SQL, Tableau";
+        document.getElementById("boton").value = "Change to Spanish";
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Mi CV</h1>
+  
+  <p id="nombre">Nombre: Oscar Téllez</p>
+  <p id="titulo">Título: Analista de Datos</p>
+  <p id="experiencia">Experiencia: 5 años en análisis de datos</p>
+  <p id="educacion">Educación: Licenciatura en Ciencias de la Computación</p>
+  <p id="habilidades">Habilidades: Python, SQL, Tableau</p>
+  
+  <select id="idioma">
+    <option value="es">Español</option>
+    <option value="en">English</option>
+  </select>
+  
+  <button id="boton" onclick="cambiarIdioma()">Cambiar a Inglés</button>
+</body>
+</html>

@@ -1,0 +1,31 @@
+from pathlib import Path
+
+#Carpeta original OTMX
+OTMX_dir = Path('C:/') / "OTMX02"
+OTMX_dir.mkdir(parents=True, exist_ok=True)
+
+#Serie de carpetas
+##Documentation
+DOC_dir = OTMX_dir / 'Documentation'
+DOC_dir.mkdir(parents=True, exist_ok=True)
+##Catalogues
+CAT_dir = OTMX_dir / 'Catalogues'
+CAT_dir.mkdir(parents=True, exist_ok=True)
+##Inputs
+INP_dir = OTMX_dir / 'Inputs'
+INP_dir.mkdir(parents=True, exist_ok=True)
+##Templates
+TEM_dir = OTMX_dir / 'Templates'
+TEM_dir.mkdir(parents=True, exist_ok=True)
+##Outputs
+OUT_dir = OTMX_dir / 'Outputs'
+OUT_dir.mkdir(parents=True, exist_ok=True)
+#Scripts
+SCR_dir = OTMX_dir / 'Scripts'
+SCR_dir.mkdir(parents=True, exist_ok=True)
+#App
+APP_dir = OTMX_dir / 'Apps'
+APP_dir.mkdir(parents=True, exist_ok=True)
+#Path
+PATH_dir = OTMX_dir / 'Path'
+PATH_dir.mkdir(parents=True, exist_ok=True)
