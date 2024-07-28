@@ -1,0 +1,141 @@
+# %%
+import pandas as pd
+import numpy as np
+from pathlib import Path
+import os
+from openpyxl import workbook,load_workbook
+from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font
+
+PathC = "C:/OTMX"
+NameItem = "2024-043"
+
+
+# %%
+#Seleccionamos la base llamda malla
+#Definimos la ruta del archivo
+xlsx_dir = Path(PathC) / "Inputs" / NameItem
+
+# %%
+# Define & create output directory
+pdf_output_dir = Path(PathC) / "Outputs" / NameItem
+pdf_output_dir.mkdir(parents=True, exist_ok=True)
+
+# %%
+
+#Dataframe
+Name01 = "Data_Malla.xlsx"
+PathFileName01 = xlsx_dir / Name01
+df01 = pd.read_excel(PathFileName01)
+df01.columns
+df01 = df01[['CODPOLIZA','CODMONEDA','APELLIDORAZONSOCIAL','BIDUDI','BIDFORD']]
+df01 = df01.rename(columns={'CODPOLIZA':'POLIZA'})
+df01
+
+# %%
+#Segundo DataFrame
+
+Name02 = "Data_Pagadas.xlsx"
+PathFileName02 = xlsx_dir / Name02
+df02 = pd.read_excel(PathFileName02)
+df02 = df02[['POLIZA_MARSH','AGENCIA','DESCRIPCION','MODELO','ESTATUS_POLIZA',
+             'FECHA_PAGO','PRIMA_NETA_POLIZA','PRIMA_TOTAL_POLIZA']]
+df02 = df02.rename(columns={'POLIZA_MARSH':'POLIZA'})
+df02
+
+
+# %%
+#Unión de tablas por Ineer Join
+InnerJoin = pd.merge(df01,df02, on='POLIZA', how='left')
+InnerJoin.columns
+
+# %%
+#Ajuytar columnas
+InnerJoin = InnerJoin.rename(columns={'AGENCIA':'Agencia'})
+InnerJoin = InnerJoin.rename(columns={'POLIZA':'Poliza'})
+InnerJoin = InnerJoin.rename(columns={'APELLIDORAZONSOCIAL':'Cliente'})
+InnerJoin = InnerJoin.rename(columns={'PRIMA_NETA_POLIZA':'Prima Neta'})
+InnerJoin = InnerJoin.rename(columns={'PRIMA_TOTAL_POLIZA':'Prima Total'})
+InnerJoin = InnerJoin.rename(columns={'CODMONEDA':'Moneda'})
+InnerJoin = InnerJoin.rename(columns={'ESTATUS_POLIZA':'Vigente'})
+InnerJoin = InnerJoin.rename(columns={'FECHA_PAGO':'FecCierre'})
+InnerJoin = InnerJoin.rename(columns={'MODELO':'VehAnio'})
+InnerJoin = InnerJoin.rename(columns={'DESCRIPCION':'Modelo'})
+
+
+
+
+
+
+
+# %%
+#Campos calculados
+InnerJoin['%Comisión'] = 24
+InnerJoin['Imp.Comisión'] = InnerJoin['Prima Neta']*0.24
+InnerJoin['%Com.Paragón'] = 6
+InnerJoin['Imp.Com.Paragón'] = InnerJoin['Prima Neta']*0.06
+InnerJoin['Aseguradora'] = 'Zurich'
+
+
+
+
+# %%
+InnerJoin = InnerJoin[['Agencia','Poliza', 'Cliente','Prima Neta','Prima Total', '%Comisión','Imp.Comisión','%Com.Paragón','Imp.Com.Paragón',
+                       'Moneda','FecCierre','Vigente','BIDUDI', 'BIDFORD','Modelo'
+       , 'VehAnio','Aseguradora']]
+
+# %%
+
+ws ="DataUDI"
+InnerJoin.to_excel(pdf_output_dir / 'All_Data_UDI_Ford.xlsx', sheet_name=ws, index=False)
+InnerJoin.columns
+
+# %%
+#Sacamos los valores únicos de la agencias
+InnerJoin["Agencia"].unique()
+
+# %%
+#Establecemos el bucle para el análisis
+import openpyxl
+
+for x in InnerJoin["Agencia"].unique():
+    df_temp = InnerJoin[InnerJoin["Agencia"]== x]
+    #Convertimos el archivo de excel
+    df_temp.to_excel(pdf_output_dir / f"Archivo_UDI_Agencia_{x}.xlsx", index = False)
+
+    #Edición del archivo de excel
+    wb = openpyxl.load_workbook(pdf_output_dir / f"Archivo_UDI_Agencia_{x}.xlsx")
+    sheet = wb.active
+    
+    w =20
+    sheet.column_dimensions['A'].width = 20
+    sheet.column_dimensions['B'].width = 20
+    sheet.column_dimensions['C'].width = 20
+    sheet.column_dimensions['D'].width = 20
+    sheet.column_dimensions['E'].width = 20
+    sheet.column_dimensions['F'].width = 20
+    sheet.column_dimensions['G'].width = 20
+    sheet.column_dimensions['H'].width = 20
+    sheet.column_dimensions['I'].width = 20
+    sheet.column_dimensions['J'].width = 20
+    sheet.column_dimensions['K'].width = 20
+    sheet.column_dimensions['L'].width = 20
+    sheet.column_dimensions['M'].width = 20
+    sheet.column_dimensions['N'].width = 20
+    sheet.column_dimensions['O'].width = 20
+    sheet.column_dimensions['P'].width = 20
+    sheet.column_dimensions['Q'].width = 20
+
+
+
+    #Color de las columnas
+
+    #Insertar Filas
+
+    #Insertar logo Marsh
+
+
+
+    wb.save(pdf_output_dir / f"Archivo_UDI_Agencia_{x}.xlsx")
+
+
+
