@@ -1,0 +1,27 @@
+Ejercicio práctico
+
+Recibirán 4 archivos, 3 csv (Data de nuestro sistema marsh) y 1 xlsx (Data de la aseguradora)
+
+El objetivo final es ver qué tiene la data de la aseguradora que esté en la data de marsh.
+
+-Cargar los 4 archivos a Python (los 3 csv cargarlos con bucle for)
+
+-De la información de marsh dejar solamente estas columnas : 'NumeroPoliza','Estatus', 'FechaEmision',
+       'FechaInicioVigencia', 'FechaFinVigencia', 'Prima', 'TotalPrima'
+
+-Convertir todos los nombres de columnas a mayúsculas
+
+-Hacer el left Join (aseguradora <- marsh) por NÚMERO DE PÓLIZA y TIPO 
+               POLIZA= En la data de la aseguradora aparece como POLIZA y en la data de marsh aparece como NUMEROPOLIZA.
+               TIPO= En la data de la aseguradora aparece como TIPO y en la data de marsh como ESTATUS.
+Recordar que se pueden cambiar los nombres de las columnas para tenerlos iguales y hacer el cruce más sencillo. 
+
+Es importante tener en cuenta que el tipo de movimiento si es nueva o renovación aparece diferente en los dos dataframes, homologarlos primero para poder
+hacer el cruce, en la data de la aseguradora aparece como EMI y EMR, reemplazar EMI por NUEVA y EMR por RENOVACION para poder hacer el cruce.
+
+También verificar que las columnas de POLIZA no tengan algún caracter diferente que no permita cruzarlas.
+
+-Crear una columna nueva que me compare si la columna "DESDE" es igual o diferente a la columna "FECHAINICIOVIGENCIA" (verificar los tipos de datos para poder hacer la comparación)
+
+-Exportar en un excel con varias hojas, la primera el cruce, la segunda la data completa de la aseguradora y la tercera la data completa de marsh
+
