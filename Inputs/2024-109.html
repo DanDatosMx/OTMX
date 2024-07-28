@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Use the latest (edge) version of IE rendering engine -->
+    <title>EmailTemplate-Proceso</title>
+    <!-- The title tag shows in email notifications, like Android 4.4. -->
+    <!-- Please use an inliner tool to convert all CSS to inline as inpage or external CSS is removed by email clients -->
+    <!-- important in CSS is used to prevent the styles of currently inline CSS from overriding the ones mentioned in media queries when corresponding screen sizes are encountered -->
+
+    <!-- CSS Reset -->
+    <style type="text/css">
+/* What it does: Remove spaces around the email design added by some email clients. */
+      /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+html,  body {
+	margin: 0 !important;
+	padding: 0 !important;
+	height: 100% !important;
+	width: 100% !important;
+}
+/* What it does: Stops email clients resizing small text. */
+* {
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+/* What it does: Forces Outlook.com to display emails full width. */
+.ExternalClass {
+	width: 100%;
+}
+/* What is does: Centers email on Android 4.4 */
+div[style*="margin: 16px 0"] {
+	margin: 0 !important;
+}
+/* What it does: Stops Outlook from adding extra spacing to tables. */
+table,  td {
+	mso-table-lspace: 0pt !important;
+	mso-table-rspace: 0pt !important;
+}
+/* What it does: Fixes webkit padding issue. Fix for Yahoo mail table alignment bug. Applies table-layout to the first 2 tables then removes for anything nested deeper. */
+table {
+	border-spacing: 0 !important;
+	border-collapse: collapse !important;
+	table-layout: fixed !important;
+	margin: 0 auto !important;
+}
+table table table {
+	table-layout: auto;
+}
+/* What it does: Uses a better rendering method when resizing images in IE. */
+img {
+	-ms-interpolation-mode: bicubic;
+}
+/* What it does: Overrides styles added when Yahoo's auto-senses a link. */
+.yshortcuts a {
+	border-bottom: none !important;
+}
+/* What it does: Another work-around for iOS meddling in triggered links. */
+a[x-apple-data-detectors] {
+	color: inherit !important;
+}
+</style>
+
+    <!-- Progressive Enhancements -->
+    <style type="text/css">
+        
+        /* What it does: Hover styles for buttons */
+        .button-td,
+        .button-a {
+            transition: all 100ms ease-in;
+        }
+        .button-td:hover,
+        .button-a:hover {
+            background: #555555 !important;
+            border-color: #555555 !important;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width : 182px ){
+
+            .email-container {
+                width: 100% !important;
+            }
+
+            /* What it does: Forces elements to resize to the full width of their container. Useful for resizing images beyond their max-width. */
+            .fluid,
+            .fluid-centered {
+                max-width: 100% !important;
+                height: auto !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            /* And center justify these ones. */
+            .fluid-centered {
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            /* What it does: Forces table cells into full-width rows. */
+            .stack-column,
+            .stack-column-center {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                direction: ltr !important;
+            }
+            /* And center justify these ones. */
+            .stack-column-center {
+                text-align: center !important;
+            }
+        
+            /* What it does: Generic utility class for centering. Useful for images, buttons, and nested tables. */
+            .center-on-narrow {
+                text-align: center !important;
+                display: block !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                float: none !important;
+            }
+            table.center-on-narrow {
+                display: inline-block !important;
+            }
+                
+        }
+
+    </style>
+    </head>
+    <body bgcolor="#e0e0e0" width="100%" style="margin: 0;" yahoo="yahoo">
+    <table bgcolor="#e0e0e0" cellpadding="0" cellspacing="0" border="0" height="100%" width="100%" style="border-collapse:collapse;">
+      <tr>
+        <td><center style="width: 100%;">
+            
+            <!-- Visually Hidden Preheader Text : BEGIN -->
+            <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;"> (Optional) This text will appear in the inbox preview, but not the email body. </div>
+            <!-- Visually Hidden Preheader Text : END --> 
+            
+            <!-- Email Header : BEGIN -->
+            <table align="center" width="600" class="email-container">
+            <tr>
+                <td style="padding: 20px 0; text-align: left"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCABkAlgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD4Sooor94PzQKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAC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" style="width: 600px; height: 100px;" width="600" height="100" alt="alt_text" border="0"></td>
+              </tr>
+          </table>
+            <!-- Email Header : END --> 
+            
+            <!-- Email Body : BEGIN -->
+            <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="600" class="email-container">
+            
+            <!-- Hero Image, Flush : BEGIN -->
+            <tr>
+                <td class="full-width-image">&nbsp;</td>
+              </tr>
+            <!-- Hero Image, Flush : END --> 
+            
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+              <td style="padding: 40px; text-align: justify; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                <p>Estimado(a) buen d&iacute;a,</p>
+                <p>Espero que este mensaje le encuentre bien. Me dirijo a usted para solicitar su apoyo con respecto a los siguientes movimiento    . Agradezco de antemano su gesti&oacute;n y quedo atenta a cualquier actualizaci&oacute;n o informaci&oacute;n adicional que pueda proporcionar.<br>
+                </p>
+                <p>Por favor, revise el archivo adjunto y aseg&uacute;rate de que los datos sean correctos</p>
+<p>Adem&aacute;s, me gustar&iacute;a recordarle que <strong>este documento contiene informaci&oacute;n restringida y est&aacute; destinado &uacute;nicamente a personas espec&iacute;ficas nombradas. Por lo tanto, le solicito que no distribuya este documento ni cualquier informaci&oacute;n contenida en &eacute;l fuera del grupo de destinatarios aprobados, ya que esto est&acute; estrictamente prohibido. </strong> </p>
+		<p>Quedo a tu disposici&oacute;n para cualquier otra solicitud o consulta que puedas tener&nbsp;</p>
+			    
+    			
+			    <p>Saludos cordiales.</p>
+				 <p>Att. Marsh Contigo.&nbsp;</p>
+		      <!-- Button : END --></td>
+              </tr>
+				
+			
+            <!-- 1 Column Text : BEGIN --> 
+            
+            <!-- Background Image with Text : BEGIN -->
+            
+                  </table>
+			
+</div>
+
+        <div class="footer">
+			
+			      <img align="center" border="0" src="https://i.ibb.co/sPRT0sX/marsh-foot.png" alt="Marsh logo" title="Marsh logo" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 100%;max-width: 80px;" width="80"/>
+            <p style="color: gray">Oficina de Transformaci&oacute;n M&eacute;xico | Soft Automation DMX</p>
+        </div>
+			
+
+                
+                <!--[if gte mso 9]>
+                    </v:textbox>
+                    </v:rect>
+                    <![endif]--></td>
+              </tr>
+            <!-- Background Image with Text : END --> 
+            
+            <!-- Two Even Columns : BEGIN -->
+            <tr> </tr>
+            <!-- Two Even Columns : END --> 
+            
+            <!-- Three Even Columns : BEGIN -->
+            <tr> </tr>
+            <!-- Three Even Columns : END --> 
+            
+            <!-- Thumbnail Left, Text Right : BEGIN -->
+            <tr> </tr>
+            <!-- Thumbnail Left, Text Right : END --> 
+            
+            <!-- Thumbnail Right, Text Left : BEGIN -->
+            <tr> </tr>
+            <!-- Thumbnail Right, Text Left : END -->
+            
+          </table>
+            <!-- Email Body : END --> 
+            
+            <!-- Email Footer : BEGIN -->
+            <!-- Email Footer : END -->
+            
+          </center></td>
+      </tr>
+    </table>
+</body>
+</html>
