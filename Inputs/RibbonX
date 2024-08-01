@@ -1,0 +1,519 @@
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui">
+	<ribbon startFromScratch="false">
+		<tabs>
+			<tab id="customTab" label="OT-MX">
+<!---->  
+			  
+        <!-- 00 | Main Tab |-->
+        <group id="GP01" label="OT-MX">
+            <button id="GP01BT01"
+                    label="Data Management"
+                    image="Marsh_Square_Empty"
+                    size="large"
+                    screentip="Data Management MX"
+                    supertip="Custom Tab"
+                    onAction="modUserForm.CustomTab_OT_form_Show"
+            />
+        </group >
+          
+        <!-- 01 | Additional | -->
+        <group id="GP02" label="Functions">
+
+        <!-- 01.1 | Save As | -->
+        <splitButton id="GP02SB01" size="large">
+
+            <button id="GP02SB01BT01"
+                    label="Save"
+                    imageMso="SaveAndClose"
+                    screentip="Options to save"
+                    supertip="Saving functions"
+            
+            
+            
+            
+            />
+                    
+            <menu id="GP02SB01BT01MN01" >
+
+            <!-- 01.1.1 | Save as .xls | -->
+            <button id="GP02SB01BT01BT01"
+                    label="Save as .xls"
+                    imageMso="FileSaveAsExcel97_2003"
+                    screentip="Excel 1997-2003 File"
+                    supertip="Retrive a copy for Excel file 2003-2007 [.xls]"
+                    onAction="modSaveAs.SaveAsXls"
+            />
+            
+            <!-- 01.1.2 | Save as .xlsx | -->
+            <button id="GP02SB01BT01BT02"
+                    label="Save as .xlsx"
+                    imageMso="FileSaveAsExcelXlsx"
+                    screentip="Excel File"
+                    supertip="Retrieve a copy for Excel file 2010 [.xlsx]"
+                    onAction="modSaveAs.SaveAsXlsx"
+            />
+            
+            <!-- 01.1.3 | Save as .pdf | -->
+            <button id="GP02SB01BT01BT03"
+                    label="Save as .pdf"
+                    imageMso="FileEmailAsPdfEmailAttachment"
+                    screentip="Pdf File"
+                    supertip="Retrieve a copy for PDF file [.pdf]"
+                    onAction="modSaveAs.SaveAsPDF"
+            />
+            
+            <!-- 01.1.4 | Save as .txt | -->
+            <button id="GP02SB01BT01BT04"
+                    label="Save as.txt"
+                    imageMso="ExportTextFile"
+                    screentip="Text File"
+                    supertip="Retrieve a copy for Text file [.txt]"
+                    onAction="modSaveAs.SaveAsTxt"
+            />
+            
+            <!-- 01.1.5 | Save as .csv | -->
+            <button id="GP02SB01BT01BT05"
+                    label="Save as .csv"
+                    imageMso="FileSaveAsExcelXlsb"
+                    screentip="Csv File"
+                    supertip="Retrieve a copy for Comma Delimited file [.csv]"
+                    onAction="modSaveAs.SaveAsCSV"
+            />
+            </menu>
+        </splitButton>
+
+        <!-- 02.1 | Case Functions | -->
+        <splitButton id="GP02SB02" size="large">
+            <button id="GP02SB02BT01"
+                    label="Case"
+                    imageMso="FontPaneShowHide"
+                    supertip="Size Case"
+            />
+            
+            <menu id="GP02SB02MN01" >
+                    
+              <!-- 02.1.1 | Low Case | -->
+              <button id="GP02SB02BT01BT01"
+                      label="Low Case"
+                      imageMso="FontSchemes"
+                      screentip="Low Case fx"
+                      supertip="Converts Lower case"
+                      onAction="modCase.LowCase"
+              />
+              <!-- 02.1.2 | Upper Case | -->
+              <button id="GP02SB02BT01BT02"
+                      label="Upper Case"
+                      imageMso="FontSchemes"
+                      screentip="Upper Case fx"
+                      supertip="Converts Upper case"
+                      onAction="modCase.UpperCase"
+              />
+              <!-- 02.1.3 | Capital Case | -->
+              <button id="GP02SB02BT01BT03"
+                      label="Capital Case"
+                      imageMso="FontSchemes"
+                      screentip="Capital Case fx"
+                      supertip="Converts Capitalizable"
+                      onAction="modCase.CapitalCase"
+              />                                                       
+            </menu>
+        </splitButton>
+          
+        <!-- 03.1 | Folder Functions | -->
+        <splitButton id="GP02SB03" size="large">
+            <button id="GP02SB03BT01"
+                    label="Path"
+                    imageMso="UpdateFolder"
+                    supertip="File Handling"
+            />
+            
+            <menu id="GP02SB03MN01" >
+                    
+              <!-- 03.1.1 | Retrieve Files | -->
+              <button id="GP02SB03BT01BT01"
+                    label="Get Path Files"
+                    imageMso="ImportWorkbook"
+                    screentip="Path Files"
+                    supertip="Retrieve a list of folders"
+                    onAction="modFiles.GetFiles"
+              />
+              <!-- 03.1.2 | Update Files | -->
+              <button id="GP02SB03BT01BT02"
+                    label="Update Path Files"
+                    imageMso="UpdateFolder"
+                    screentip="Update Path Files"
+                    supertip="Update folder after edition"
+                    onAction="modFiles.RenameFiles"
+              />
+              <!-- 03.1.3 | Copy Files | -->
+              <button id="GP02SB03BT01BT03"
+                    label="Copy Files"
+                    imageMso="MoveToFolder"
+                    screentip="Copy Files to Selected Folder"
+                    supertip="Update the folder selected with selected files"
+                    onAction="modFiles.CopyFiles_SelectFolder"
+              />
+              <!-- 03.1.4 | Copy Files Multi | -->
+              <button id="GP02SB03BT01BT04"
+                    label="Copy Files [*]"
+                    imageMso="MoveToFolder"
+                    screentip="Copy Files to Multi-Folders"
+                    supertip="Update the set folders with their respective files"
+                    onAction="modFiles.CopyFiles_Setup"
+              />                                                                   
+              <!-- 03.1.5 | Convert Files Zip | -->
+              <button id="GP02SB03BT01BT05"
+                    label="Convert Zip by Group"
+                    imageMso="FileDocumentEncrypt"
+                    screentip="Copy Files to zip"
+                    supertip="Convert a list of files by group"
+                    onAction="modFiles.makeZipList"
+              />                                                                                 
+              <!-- 03.2.1 | Retrieve Folders | -->
+              <button id="GP02SB03BT01BT056"
+                    label="Get Folder Names"
+                    imageMso="UpdateFolderList"
+                    screentip="Retrieve a list of folders"
+                    supertip="Select a main folder in order to get a list of its subfolders"
+                    onAction="modFiles.GetFolders"
+              />                                                                   
+              <!-- 03.2.2 | Rename Folder Names | -->
+              <button id="GP02SB03BT01BT07"
+                    label="Rename Folder Names"
+                    imageMso="RenameThisFolder"
+                    screentip="Update folder names"
+                    supertip="Update the set folders with new folder names"
+                    onAction="modFiles.RenameFolders"
+              />                                                                   
+              <!-- 03.2.3 | Transform Folders to Zip | -->
+              <button id="GP02SB03BT01BT08"
+                    label="Folder to zip"
+                    imageMso="PageMenu"
+                    screentip="Transform folders to zip format"
+                    supertip="Transform a list of folders included its content to .zip format"
+                    onAction="modFiles.FoldersToZip"
+              />                                                                   
+            </menu>
+        </splitButton>
+
+        <!-- 04.1 | Company | -->
+        <splitButton id="GP02SB04" size="large">
+              <button id="GP02SB04BT01"
+                      label="Company"
+                      image="Marsh_Square_Empty"
+                      supertip="Size Case"
+              />
+             
+            <menu id="GP02SB04MN01" >
+
+              <!-- 04.1.1 | Marsh Logo | -->
+              <button id="GP02SB04BT01BT01"
+                      label="Marsh Logo"
+                      image="Marsh_Square_Empty"
+                      screentip="Marsh Logo"
+                      supertip="Insert Marsh Logo on sheet"
+                      onAction="modKT_IR.InsertMarshLogo"
+              />
+
+              <!-- 04.2.1 | Marsh Cell | -->
+              <button id="GP02SB04BT01BT02"
+                      label="Format Cell"
+                      imageMso="ChartFormatSelection"
+                      screentip="RGB Cells Fill"
+                      supertip="Apply Corporative Colors for Cells"
+                      onAction="modKT_IR.Marsh_CellFormat"
+              />
+
+              <!-- 04.2.1 | Data Request | -->
+              <button id="GP02SB04BT01BT03"
+                      label="Data Request"
+                      imageMso="CreateWorkflow"
+                      screentip="Create a new document for Data Request"
+                      supertip="Fill a template with esential information"
+                      onAction="modUserForm.Request_form_Show"
+              />
+                                   
+            </menu>
+        </splitButton>
+      </group>
+
+        <!-- 03 | Data Management Tab |-->
+      <group id="GP03" label="Automation">        
+        <splitButton id="GP03SB01" size="large">
+            <button id="GP03BT01"
+                    label="Data Delivery"
+                    imageMso="ReportsMenu"
+                    screentip="Process and Reporting"
+                    supertip="Module for Internal Reports / Process"
+            />
+            
+            <menu id="GP03MN01" >
+              
+              <!-- 03.1.1 | Insurer Revenue | -->
+              <button id="GP03BT01SB01"
+                      label="Insurer Revenue"
+                      imageMso="ChartTypeComboInsertDialog"
+                      screentip="IR Report"
+                      supertip="Insurer Revenue report for end of month"
+                      onAction="modIR.Process"
+              />              
+              <!-- 03.2.1 | Limits of Liability | -->
+              <button id="GP03BT01SB02"
+                      label="Limitis of Liability"
+                      imageMso="ArrangeByCategory"
+                      screentip="LOL Report"
+                      supertip="LOL Report for Auditory"
+                      onAction="modUserForm.ID_2022_010_form_Show"
+              />
+            </menu>
+              
+        </splitButton>
+      </group >
+        
+        <!-- 04 | Service Center Tab |-->
+      <group id="GP04" label="Service Center">
+
+        <splitButton id="GP04SB01" size="large">
+          
+            <button id="GP04BT01"
+                    label="Data Process"
+                    imageMso="TrackingForm"
+                    screentip="Service Center"
+                    supertip="Module for Process Inputs"
+            />
+            
+            <menu id="GP04MN01" >
+                    
+              <!-- 04.1.1 | Jira | -->
+              <button id="GP04BT01SB01"
+                      label="Jira"
+                      imageMso="ChartTypeComboInsertDialog"
+                      screentip="Process Inputs"
+                      supertip="Module for Service Center"
+                      onAction="modServiceCenter.Process"
+              />                                   
+            </menu>         
+        </splitButton>            
+      </group >
+        
+        <!-- 05 | Client Operations Tab |-->
+      <group id="GP05" label="RM">
+
+        <splitButton id="GP05SB01" size="large">
+          
+            <button id="GP05BT01"
+                    label="Client Operations"
+                    imageMso="MonthlyView"
+                    screentip="Client Operations"
+                    supertip="Module for Issuance and Collections"
+            />
+            
+            <menu id="GP05MN01" >                                  
+                  
+              <menu id="GP05MN01SB01" label="Reminders">
+                                 
+              <!-- 05.1.1 | Reminders Step 01 | -->
+              <button id="GP05BT01SB01"
+                      label="01 | Fit Data"
+                      imageMso="GroupTaskViewSimple"
+                      screentip="Step 01"
+                      supertip="ETL Work Process"
+                      onAction="mod2022_044.Step_01_Tidying"
+              />
+
+              <!-- 05.1.2 | Reminders Step 02 | -->
+              <button id="GP05BT01SB02"
+                      label="02 | Labeling"
+                      imageMso="GroupTaskViewSimple"
+                      screentip="Step 02"
+                      supertip="Labeling Process"
+                      onAction="mod2022_044.Labeling"
+              />
+
+              <!-- 05.1.3 | Reminders Step 03 | -->
+              <button id="GP05BT01SB03"
+                      label="03 | Summary"
+                      imageMso="GroupTaskViewSimple"
+                      screentip="Step 03"
+                      supertip="Report"
+                      onAction="mod2022_044.Report"
+              />
+              
+              </menu>
+                                                 
+            </menu>      
+        </splitButton>            
+      </group >
+
+        <!-- 06 | Placement Tab |-->
+      <group id="GP06" label="Placement">
+
+        <splitButton id="GP06SB01" size="large">
+          
+            <button id="GP06BT01"
+                    label="Placement"
+                    imageMso="OverallocationGoTo"
+                    screentip="Placement Module"
+                    supertip="Module for Placement MX"
+            />
+            
+            <menu id="GP06MN01" >
+              
+              <menu id="GP06MN01SB01" label="Activity Report">
+              
+              <!-- 06.1 | Placement Strategy Daños | -->
+              <button id="GP06BT01SM01"
+                      label="Reporte Strategy | Daños"
+                      imageMso="Organizer"
+                      screentip="Daños"
+                      supertip="Commision >= 10K USD"
+                      onAction="mod2022_048.Main_2022_048_Daños"
+              />
+ 
+              <!-- 06.2 | Placement Strategy Autos | -->
+              <button id="GP06BT01SM02"
+                      label="Reporte Strategy | Autos"
+                      imageMso="Organizer"
+                      screentip="Autos"
+                      supertip="Commission >= 150K MXN"
+                      onAction="mod2022_048.Main_2022_048_Autos"
+              />             
+
+              <!-- 06.3 | Portfolio Solutions Daños | -->
+              <button id="GP06BT01SM03"
+                      label="Reporte Portfolio Solutions | Daños"
+                      imageMso="Organizer"
+                      screentip="Daños"
+                      supertip="Commission Between 5K and 10K USD"
+                      onAction="mod2022_060.Main_2022_060_Daños"
+              />
+
+              <!-- 06.3 | Portfolio Solutions Autos | -->
+              <button id="GP06BT01SM04"
+                      label="Reporte Portfolio Solutions | Autos"
+                      imageMso="Organizer"
+                      screentip="Autos"
+                      supertip="Commission Between 50K and 150K MXN"
+                      onAction="mod2022_060.Main_2022_060_Autos"
+              />
+
+              </menu>
+                                                 
+            </menu>      
+        </splitButton>            
+      </group >
+
+        <!-- 07 | Beneflex Tab |-->
+      <group id="GP07" label="Beneflex">
+
+        <splitButton id="GP07SB01" size="large">
+          
+            <button id="GP07BT01"
+                    label="Beneflex"
+                    imageMso="SmartArtGraphicsShapesGiveFeedback"
+                    screentip="Flexible Benefits Module"
+                    supertip="Module for Beneflex"
+            />
+            
+            <menu id="GP07MN01" >
+                                  
+              <!-- 07.1 | MondelËz | -->
+              <button id="GP07BT01BT01"
+                      label="Mondelëz"
+                      imageMso="ProjectCalculate"
+                      screentip="Metrics for Mondelëz Account"
+                      supertip="Employees, Coverages, Benefits"
+                      onAction="mod2022_055.Main_Process"
+              />
+               
+              </menu>
+                                                 
+        </splitButton>            
+      </group >
+
+       <!-- 08 | Corporate Tab |-->
+      <group id="GP08" label="Corporate">
+
+        <splitButton id="GP08SB01" size="large">
+          
+            <button id="GP08BT01"
+                    label="Corporate"
+                    imageMso="GroupNotesOptions"
+                    screentip="Corporate Module"
+                    supertip="Module for Corporate Sales"
+            />
+            
+            <menu id="GP08MN01" >
+                                  
+              <!-- 08.1 | Leads KiteWorks | -->
+              <button id="GP08BT01BT01"
+                      label="Kiteworks Leads"
+                      imageMso="TableFind"
+                      screentip="Leads Validation"
+                      supertip="Leads detection SICS and MF"
+                      onAction="mod2022_068.LeadsKiteworks"
+              />
+               
+              </menu>
+                                                 
+        </splitButton>            
+      </group >
+
+       <!-- 98 | Capacity {ODT} |-->
+      <group id="GP98" label="Capacity">
+        
+            <button id="GP98BT01"
+                    label="Capacity Calculadora"
+                    imageMso="CalculateNow"
+                    size="large"
+                    screentip="Oficina de Transformación MX"
+                    supertip="Capacity Automation"
+                    onAction="modUserForm.UserForm_2023_005_Show"
+            />
+                                                          
+      </group >
+
+<!-- Developer Custom Tab -->
+
+        <!-- 99 | Data Management DEV |-->
+      <group id="GP99" label="Design">
+
+        <splitButton id="GP99SB01" size="large">
+          
+            <button id="GP99BT01"
+                    label="Data"
+                    imageMso="ConnectorsGallery"
+                    screentip="Development"
+                    supertip="Module for Data Developers"
+            />
+            
+            <menu id="GP99MN01" >
+                    
+              <!-- 99.1.1 | Script Titles | -->
+              <button id="GP99BT01SB01"
+                      label="Comments Head"
+                      imageMso="Callout"
+                      screentip="Comments Head Structure"
+                      supertip="Frame for Comments into Script"
+                      onAction="modUserForm.Script_form_Show"
+              />                                   
+              
+              <!-- FollowStatus_form_Show | -->
+              <button id="GP99BT01SB02"
+                      label="Project Tasks"
+                      imageMso="BaselineSave"
+                      screentip="Project Execution Tasks"
+                      supertip="Project Log"
+                      onAction="modUserForm.FollowStatus_form_Show"
+              />                
+                
+            </menu> 
+        </splitButton>            
+      </group >
+
+<!-- Developer Custom Tab -->
+<!---->
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>
